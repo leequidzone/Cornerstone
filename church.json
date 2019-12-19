@@ -1,0 +1,71 @@
+{
+  "models": [
+    {
+      "name": "User",
+      "company": "Me",
+      "author": "Raul",
+      "fields": [
+        {
+          "name": "uid",
+          "package": "dart",
+          "type": "String"
+        },
+        {
+          "name": "role",
+          "package": "dart",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "company": "Me",
+      "author": "Raul",
+      "fields": [
+        { "package": "dart", "type": "String", "name": "uid" },
+        { "package": "dart", "type": "int", "name": "created" },
+        { "package": "dart", "type": "int", "name": "startTime" },
+        { "package": "Location", "type": "Location", "name": "location" }
+      ]
+    },
+    {
+      "name": "Location",
+      "company": "Me",
+      "author": "Raul",
+      "fields": [
+        { "package": "dart", "type": "String", "name": "uid" },
+        { "package": "dart", "type": "String", "name": "address1" },
+        { "package": "dart", "type": "String", "name": "address2" },
+        { "package": "dart", "type": "String", "name": "address3" },
+        { "package": "dart", "type": "String", "name": "city" },
+        { "package": "dart", "type": "String", "name": "state" },
+        { "package": "dart", "type": "String", "name": "zip" },
+        { "package": "dart", "type": "String", "name": "lat" },
+        { "package": "dart", "type": "String", "name": "long" }
+      ]
+    },
+    {
+      "name": "Profile",
+      "company": "Me",
+      "author": "Raul",
+      "fields": [{ "package": "dart", "type": "String", "name": "uid" }]
+    },
+    {
+      "name": "FireUser",
+      "company": "Me",
+      "author": "Raul",
+      "fields": [
+        { "package": "dart", "type": "String", "name": "uid" },
+        { "package": "dart", "type": "String", "name": "displayName" },
+        { "package": "dart", "type": "String", "name": "isEmailVerified" },
+        { "package": "dart", "type": "String", "name": "phoneNumber" },
+        { "package": "dart", "type": "String", "name": "photoUrl" },
+        { "package": "dart", "type": "String", "name": "providerId" },
+        { "package": "dart", "type": "String", "name": "isAnonymous" },
+        { "package": "dart", "type": "String", "name": "email" },
+        { "package": "dart", "type": "String", "name": "hasProfile" },
+        { "package": "dart", "type": "String", "name": "profile" }
+      ]
+    }
+  ]
+}
