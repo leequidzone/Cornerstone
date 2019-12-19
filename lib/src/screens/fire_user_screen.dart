@@ -8,7 +8,7 @@ class FireUserScreen extends StatelessWidget {
         length:
             1, //This should be the same as the length of children in TabBarView
         child: Scaffold(
-          bottomNavigationBar: BottomNav(),
+          bottomNavigationBar: BottomNav(currentIndex: 0,),
           body: TabBarView(
             children: [Container(child: Text('FireUserScreen'))],
           ),
@@ -28,7 +28,7 @@ class FireUserScreenToManyScreen extends StatelessWidget {
         length:
             1, //This should be the same as the length of children in TabBarView
         child: Scaffold(
-          bottomNavigationBar: BottomNav(),
+          bottomNavigationBar: BottomNav(currentIndex: 0,),
           body: TabBarView(
             children: [Container(child: Text('FireUserScreen'))],
           ),
