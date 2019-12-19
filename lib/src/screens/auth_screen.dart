@@ -1,6 +1,5 @@
 import 'package:church/factories.dart';
 import 'package:flutter/material.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 
 class AuthScreen extends StatelessWidget {
   final Factories _factories;
@@ -28,7 +27,6 @@ class AuthScreen extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest()).then((paymentMethod) {});
                   },
                   child: Text('Add Card'),
                 ),
