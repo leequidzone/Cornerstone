@@ -13,6 +13,7 @@ class AuthScreen extends StatelessWidget {
   final TextEditingController _state = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
+  List<String> fieldValues = new List(9);
 
   AuthScreen({Key key, Factories factories})
       : _factories = factories ?? Factories(),
@@ -62,34 +63,55 @@ class AuthScreen extends StatelessWidget {
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "First Name "),
-                controller: _firstName),
-            Container(
-              height: 5,
-            ),
-            TextField(
-                decoration: InputDecoration(labelText: "Last Name "),
-                controller: _lastName),
-            Container(
-              height: 5,
+              decoration: InputDecoration(labelText: "First Name "),
+              controller: _firstName,
+              onChanged: (text) {
+                fieldValues[0] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
             ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Date of Birth "),
-                controller: _dob),
+              decoration: InputDecoration(labelText: "Last Name "),
+              controller: _lastName,
+              onChanged: (text) {
+                fieldValues[1] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
+            Container(
+              height: 5,
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Address Line 1 "),
-                controller: _address),
+              decoration: InputDecoration(labelText: "Date of Birth "),
+              controller: _dob,
+              onChanged: (text) {
+                fieldValues[2] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Adress Line 2 "),
+              decoration: InputDecoration(labelText: "Address Line 1 "),
+              controller: _address,
+              onChanged: (text) {
+                fieldValues[3] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
+            Container(
+              height: 5,
+            ),
+            TextField(
+                decoration:
+                    InputDecoration(labelText: "Adress Line 2 (Optional)"),
                 controller: _address1),
             Container(
               height: 5,
@@ -98,34 +120,59 @@ class AuthScreen extends StatelessWidget {
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "City "),
-                controller: _city),
+              decoration: InputDecoration(labelText: "City "),
+              controller: _city,
+              onChanged: (text) {
+                fieldValues[4] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "State"),
-                controller: _state),
+              decoration: InputDecoration(labelText: "State"),
+              controller: _state,
+              onChanged: (text) {
+                fieldValues[5] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Zip "),
-                controller: _zip),
+              decoration: InputDecoration(labelText: "Zip "),
+              controller: _zip,
+              onChanged: (text) {
+                fieldValues[6] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Email "),
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress),
+              decoration: InputDecoration(labelText: "Email "),
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (text) {
+                fieldValues[7] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
             TextField(
-                decoration: InputDecoration(labelText: "Password"),
-                controller: _passwordController,
-                obscureText: true),
+              decoration: InputDecoration(labelText: "Password"),
+              controller: _passwordController,
+              obscureText: true,
+              onChanged: (text) {
+                fieldValues[8] = text;
+                _factories.authBloc.validate(fieldValues);
+              },
+            ),
             Container(
               height: 5,
             ),
@@ -137,10 +184,26 @@ class AuthScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   }
-                  return RaisedButton(
-                      child: Text("Sign In"),
-                      onPressed: () => _factories.authBloc.onSignUp( //TODO
-                          _emailController.text, _passwordController.text));
+                  return StreamBuilder<bool>(
+                      stream: _factories.authBloc.enableSubmit,
+                      builder: (context, snapshot) {
+                        Function fn;
+                        if (snapshot.hasData && snapshot.data == true) {
+                          fn = () => _factories.authBloc.onSignUp(
+                              _emailController.text,
+                              _passwordController.text,
+                              firstName:_firstName.text,
+                              lastName:_lastName.text,
+                              address:_address.text,
+                              address1:_address1.text,
+                              city:_city.text,
+                              state:_state.text,
+                              zip:_zip.text,
+                              dob:_dob.text);
+                        }
+                        return RaisedButton(
+                            child: Text("Sign In"), onPressed: fn);
+                      });
                 }),
             Container(
               height: 20,

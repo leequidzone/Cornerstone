@@ -19,6 +19,9 @@ class AuthBloc {
   final StreamController<bool> _authBlocking = StreamController.broadcast();
   final StreamController<bool> _emailReset = StreamController.broadcast();
   final StreamController<String> _onError = StreamController.broadcast();
+  final StreamController<bool> _enableSubmit = StreamController.broadcast();
+
+  Stream<bool> get enableSubmit => _enableSubmit.stream;
 
   Stream<bool> get emailReset => _emailReset.stream;
 
@@ -46,6 +49,20 @@ class AuthBloc {
 
   void signOut() {
     _auth.signOut();
+  }
+
+  void validate(List<String> s) async {
+    int validField = 0;
+    s.forEach((str){
+      if(str != null && str.isNotEmpty){
+        validField++;
+      }
+    });
+    if (validField == 9) {
+      _enableSubmit.add(true);
+    } else {
+      _enableSubmit.add(false);
+    }
   }
 
   void resetPassword(String email) async {
