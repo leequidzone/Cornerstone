@@ -1,8 +1,11 @@
 import 'package:church/factories.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class AuthScreen extends StatelessWidget {
   final Factories _factories;
+  final format = DateFormat("yyyy-MM-dd");
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dob = TextEditingController();
@@ -87,12 +90,20 @@ class AuthScreen extends StatelessWidget {
             Container(
               height: 5,
             ),
-            TextField(
-              decoration: InputDecoration(labelText: "Date of Birth "),
+            DateTimeField(
+              decoration: InputDecoration(labelText: "DOB"),
+              format: format,
               controller: _dob,
               onChanged: (text) {
-                fieldValues[2] = text;
+                fieldValues[2] = text.toString();
                 _factories.authBloc.validate(fieldValues);
+              },
+              onShowPicker: (context, currentValue) {
+                return showDatePicker(
+                    context: context,
+                    firstDate: DateTime(1900),
+                    initialDate: currentValue ?? DateTime.now(),
+                    lastDate: DateTime(2100));
               },
             ),
             Container(
