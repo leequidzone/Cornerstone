@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:church/factories.dart';
 import 'package:church/src/screens/auth_screen.dart';
-import 'package:church/src/screens/user_screen.dart';
 import 'package:church/src/widgets/bottom_nav.dart';
 import 'package:church/src/widgets/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,7 +62,7 @@ class ChurchApp extends StatelessWidget {
           GestureDetector(
             onTap: FirebaseAuth.instance.signOut,
             child: Container(
-                margin: EdgeInsets.only(top: 8),
+                margin: EdgeInsets.only(top: 16, right: 10),
                 child: Text("Logout", style: TextStyle(color: Colors.black),)),
           )
         ],

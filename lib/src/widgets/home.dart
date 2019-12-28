@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../factories.dart';
+
 class Home extends StatelessWidget {
   final TextEditingController _anouncementController = TextEditingController();
+  final Factories _factories = Factories();
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +71,42 @@ class Home extends StatelessWidget {
 
   Widget createPostButton(BuildContext context) {
     //TODO add logic to determine if authorized
-    return Column(
-      children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          child: GestureDetector(
-              onTap: () => showCreateForm(context),
-              child: Row(
+    return StreamBuilder<FirebaseUser>(
+        stream: _factories.authBloc.fbUser().asStream(),
+        builder: (context, user) {
+          return StreamBuilder<DocumentSnapshot>(
+            stream: Firestore.instance
+                .document('roles/' + (user.data == null ? '1' : user.data.uid))
+                .get()
+                .asStream(),
+            builder: (context, doc) {
+              if (doc.data == null ? true : doc.data.data['role'] == 'basic') {
+                return Column();
+              }
+              return Column(
                 children: <Widget>[
-                  Spacer(),
-                  Text("Create Announcement"),
-                  Icon(
-                    Icons.add,
-                    size: 20,
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: GestureDetector(
+                        onTap: () => showCreateForm(context),
+                        child: Row(
+                          children: <Widget>[
+                            Spacer(),
+                            Text("Create Announcement"),
+                            Icon(
+                              Icons.add,
+                              size: 20,
+                            ),
+                            Spacer(),
+                          ],
+                        )),
                   ),
-                  Spacer(),
+                  Divider(),
                 ],
-              )),
-        ),
-        Divider(),
-      ],
-    );
+              );
+            },
+          );
+        });
   }
 
   void showCreateForm(BuildContext context) {

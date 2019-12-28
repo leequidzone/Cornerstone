@@ -11,18 +11,21 @@ class BottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     List<BottomNavigationBarItem> items = [
       BottomNavigationBarItem(
-        icon: new Icon(Icons.home),
-        title: new Text('Home'),
+        icon: new Icon(Icons.announcement),
+        title: new Text('Announcement'),
       ),
       BottomNavigationBarItem(
-        icon: new Icon(Icons.mail),
-        title: new Text('Messages'),
+        icon: new Icon(Icons.event),
+        title: new Text('Events'),
       ),
       BottomNavigationBarItem(
-        icon: new Icon(Icons.mail),
-        title: new Text('Another'),
+        icon: new Icon(Icons.mic),
+        title: new Text('Sermons'),
       ),
-      BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile'))
+      BottomNavigationBarItem(
+          icon: Icon(Icons.info_outline),
+          title: Text('About')
+      )
     ];
 
     return BottomNavigationBar(
