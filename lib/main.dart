@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:church/factories.dart';
 import 'package:church/src/screens/auth_screen.dart';
+import 'package:church/src/widgets/audioPlayer.dart';
 import 'package:church/src/widgets/bottom_nav.dart';
 import 'package:church/src/widgets/home.dart';
+import 'package:church/src/widgets/sermons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,7 @@ class ChurchApp extends StatelessWidget {
     _pageController.addListener((){
       _churchAppBloc.addListener(_pageController);
     });
-    List<Widget> items = [Home(),Home(),Home()];
+    List<Widget> items = [Home(),LocalAudioPlayer(),Sermons()];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

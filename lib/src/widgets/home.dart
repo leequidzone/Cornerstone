@@ -80,7 +80,7 @@ class Home extends StatelessWidget {
                 .get()
                 .asStream(),
             builder: (context, doc) {
-              if (doc.data == null ? true : doc.data.data['role'] == 'basic') {
+              if (doc.data == null || doc.data.data == null ? true : doc.data.data['role'] == 'basic') {
                 return Column();
               }
               return Column(
