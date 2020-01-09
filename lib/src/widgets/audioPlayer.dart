@@ -1,16 +1,23 @@
 import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:church/src/models/sermon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LocalAudioPlayer extends StatefulWidget {
+  LocalAudioPlayer({this.sermon});
+
+  final Sermon sermon;
 
   @override
-  _LocalAudioState createState() => _LocalAudioState();
+  _LocalAudioState createState() => _LocalAudioState(sermon: this.sermon);
 }
 
 class _LocalAudioState extends State<LocalAudioPlayer> {
+  _LocalAudioState({this.sermon});
+
+  final Sermon sermon;
   Duration _duration = Duration();
   Duration _position = Duration();
   AudioPlayer advancedPlayer;
@@ -22,16 +29,28 @@ class _LocalAudioState extends State<LocalAudioPlayer> {
     initPlayer();
   }
 
-  void initPlayer() {
-    advancedPlayer = AudioPlayer();
+  @override
+  void dispose() {
+    super.dispose();
+    advancedPlayer.stop().then((int) {
+      advancedPlayer.dispose();
+    });
+  }
 
-    advancedPlayer.durationHandler = (d) => setState(() {
+  void initPlayer() {
+      advancedPlayer = AudioPlayer();
+
+      advancedPlayer.onDurationChanged.listen((Duration d) {
+        setState(() {
           _duration = d;
         });
+      });
 
-    advancedPlayer.positionHandler = (p) => setState(() {
+      advancedPlayer.onAudioPositionChanged.listen((Duration p) {
+        setState(() {
           _position = p;
         });
+      });
   }
 
   Widget _tab(List<Widget> children) {
@@ -76,10 +95,7 @@ class _LocalAudioState extends State<LocalAudioPlayer> {
   Widget localAudio() {
     return Column(children: [
       _tab([
-        _btn(
-            'Play',
-            () => advancedPlayer.play(
-                'https://firebasestorage.googleapis.com/v0/b/cornerstone-47d33.appspot.com/o/1.mp3?alt=media&token=1275d5d5-3c62-41bc-a208-8b67ba86ce4e')),
+        _btn('Play', () => advancedPlayer.play(this.sermon.path)),
         _btn('Pause', () => advancedPlayer.pause()),
         _btn('Stop', () => advancedPlayer.stop()),
       ]),
@@ -101,7 +117,7 @@ class _LocalAudioState extends State<LocalAudioPlayer> {
         appBar: AppBar(
           elevation: 1.0,
           backgroundColor: Colors.teal,
-          title: Text('player!!!!!!'),
+          title: Text(this.sermon.title),
         ),
         body: TabBarView(
           children: <Widget>[localAudio()],
