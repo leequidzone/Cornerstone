@@ -9,14 +9,17 @@ part of 'event.dart';
 Event _$EventFromJson(Map<String, dynamic> json) {
   return Event(
       uid: json['uid'] as String,
-      created: json['created'] as int,
+      eventName: json['eventName'] as String,
       startTime: json['startTime'] as int,
-      location: Location.fromJson(json['location'] as Map<String, dynamic>));
+      location:
+          Location.fromJson(Map<String, String>.from(json['location'] as Map)),
+      attendance: Map<String, bool>.from(json['attendance'] as Map));
 }
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
       'uid': instance.uid,
-      'created': instance.created,
+      'eventName': instance.eventName,
       'startTime': instance.startTime,
+      'attendance': instance.attendance,
       'location': instance.location
     };
