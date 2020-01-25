@@ -47,6 +47,10 @@ class AuthBloc {
     return await _auth.currentUser();
   }
 
+  Future<String> fbUid() async {
+    return (await _auth.currentUser()).uid;
+  }
+
   void signOut() {
     _auth.signOut();
   }

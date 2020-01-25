@@ -5,12 +5,12 @@ part 'event.g.dart';
 
 @JsonSerializable(nullable: false)
 class Event {
-  final String uid;
+  final String id;
   final String eventName;
   final int startTime;
   final Map<String, bool> attendance;
   final Location location;
-  Event({this.uid, this.eventName, this.startTime, this.location, this.attendance});
+  Event({this.id, this.eventName, this.startTime, this.location, this.attendance});
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
   Map<String, dynamic> toJson() => _$EventToJson(this);
 }

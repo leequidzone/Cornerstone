@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:church/firebase_service.dart';
 import 'package:church/src/bloc/auth_bloc.dart';
+import 'package:church/src/bloc/event_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,6 +9,9 @@ class Factories {
   static Firestore _firestore = Firestore.instance;
   static FireBaseService _fireBaseService = FireBaseService(_auth, _firestore);
   static AuthBloc _authBloc = AuthBloc(_fireBaseService);
+  static EventBloc _eventBloc = EventBloc(_fireBaseService);
+
+  EventBloc get eventBloc => _eventBloc;
 
   AuthBloc get authBloc => _authBloc;
 

@@ -8,7 +8,7 @@ part of 'event.dart';
 
 Event _$EventFromJson(Map<String, dynamic> json) {
   return Event(
-      uid: json['uid'] as String,
+      id: json['id'] as String,
       eventName: json['eventName'] as String,
       startTime: json['startTime'] as int,
       location:
@@ -17,7 +17,7 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
-      'uid': instance.uid,
+      'id': instance.id,
       'eventName': instance.eventName,
       'startTime': instance.startTime,
       'attendance': instance.attendance,
