@@ -5,7 +5,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class AuthScreen extends StatelessWidget {
   final Factories _factories;
-  final format = DateFormat("yyyy-MM-dd");
+  final format = DateFormat("MM-dd-yyyy");
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dob = TextEditingController();
@@ -16,7 +16,7 @@ class AuthScreen extends StatelessWidget {
   final TextEditingController _state = TextEditingController();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
-  List<String> fieldValues = new List(9);
+  final List<String> fieldValues = new List(9);
 
   AuthScreen({Key key, Factories factories})
       : _factories = factories ?? Factories(),

@@ -24,7 +24,7 @@ class EventBloc {
     DocumentReference docRef = col.document(event.id);
     Map<String, bool> attendanceMap = event.attendance;
     attendanceMap.putIfAbsent(userId, () => false);
-    attendanceMap[userId] = attendance;
+    (attendanceMap ?? Map())[userId] = attendance;
     docRef.setData({"attendance": attendanceMap},merge: true);
   }
 }
